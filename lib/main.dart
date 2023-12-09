@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:employees_management/common_assets/fonts/common_fonts.dart';
 import 'package:employees_management/features/employees_management/domain/models/employee_entity.dart';
 import 'package:employees_management/features/employees_management/presentation/bloc/employee/employee_bloc.dart';
 import 'package:employees_management/features/employees_management/presentation/bloc/employee/employee_event.dart';
@@ -31,10 +34,16 @@ class _EmployeesManagementAppState extends State<EmployeesManagementApp> {
     locator<FlutterLocalization>()
       ..init(
         mapLocales: [
-          const MapLocale('en', AppLocale.EN),
-          const MapLocale('he', AppLocale.HE),
+          MapLocale('en', AppLocale.EN,
+              fontFamily: Platform.isIOS
+                  ? CommonFonts.sf_pro
+                  : CommonFonts.roboto_flex),
+          MapLocale('he', AppLocale.HE,
+              fontFamily: Platform.isIOS
+                  ? CommonFonts.sf_hebrew
+                  : CommonFonts.noto_sans_hebrew),
         ],
-        initLanguageCode: 'en',
+        initLanguageCode: 'he',
       )
       ..onTranslatedLanguage = _onTranslatedLanguage;
     super.initState();
@@ -48,35 +57,26 @@ class _EmployeesManagementAppState extends State<EmployeesManagementApp> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: AppLocale.appTitle.getString(context),
-        theme: ThemeData(
-          useMaterial3: true,
+    debugShowCheckedModeBanner: false,
+    title: AppLocale.appTitle.getString(context),
+    theme: ThemeData(
+      useMaterial3: true,
+          fontFamily: locator<FlutterLocalization>().fontFamily,
         ),
-        home: BlocProvider(
-          create: (_) => locator<EmployeeBloc>()
-            ..add(buildInsertEvent())
-            ..add(buildInsertEvent())
-            ..add(buildInsertEvent())
-            ..add(buildInsertEvent())
-            ..add(buildInsertEvent())
-            ..add(buildInsertEvent())
-            ..add(buildInsertEvent())
-            ..add(buildInsertEvent())
-            ..add(buildInsertEvent())
-            ..add(buildInsertEvent())
-            ..add(const SearchEmployeeEvent()),
-          child: const EmployeesList(),
-        ),
-        supportedLocales: locator<FlutterLocalization>().supportedLocales,
-        localizationsDelegates:
-            locator<FlutterLocalization>().localizationsDelegates,
-      );
+    home: BlocProvider(
+      create: (_) => locator<EmployeeBloc>()
+        ..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(const SearchEmployeeEvent()),
+      child: const EmployeesList(),
+    ),
+    supportedLocales: locator<FlutterLocalization>().supportedLocales,
+    localizationsDelegates:
+    locator<FlutterLocalization>().localizationsDelegates,
+  );
 
   // Fake information to fill the database
   EmployeeEvent buildInsertEvent() {
     final date =
-        faker.date.between(DateTime.parse("1950-01-01"), DateTime.now());
+    faker.date.between(DateTime.parse("1950-01-01"), DateTime.now());
     return InsertEmployeeEvent(
       Employee(
         name: "${faker.name.firstName()} ${faker.name.lastName()}",
