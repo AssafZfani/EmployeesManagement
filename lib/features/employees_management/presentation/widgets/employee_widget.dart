@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class EmployeeWidget extends StatelessWidget {
   final Employee employee;
 
-  const EmployeeWidget({Key? key, required this.employee}) : super(key: key);
+  const EmployeeWidget({super.key, required this.employee});
 
   @override
   Widget build(BuildContext context) => Dismissible(
