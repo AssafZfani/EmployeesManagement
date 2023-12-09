@@ -2,27 +2,54 @@ import 'package:employees_management/features/employees_management/domain/models
 import 'package:employees_management/features/employees_management/presentation/bloc/employee/employee_bloc.dart';
 import 'package:employees_management/features/employees_management/presentation/bloc/employee/employee_event.dart';
 import 'package:employees_management/features/employees_management/presentation/screens/employees_list.dart';
+import 'package:employees_management/locale/locales.dart';
 import 'package:employees_management/locator.dart';
 import 'package:faker_dart/faker_dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Init locator
   await setup();
-  runApp(EmployeesManagementApp());
+  runApp(const EmployeesManagementApp());
 }
 
-class EmployeesManagementApp extends StatelessWidget {
+class EmployeesManagementApp extends StatefulWidget {
+  const EmployeesManagementApp({super.key});
+
+  @override
+  State<EmployeesManagementApp> createState() => _EmployeesManagementAppState();
+}
+
+class _EmployeesManagementAppState extends State<EmployeesManagementApp> {
   final faker = Faker.instance..setLocale(FakerLocaleType.he);
 
-  EmployeesManagementApp({super.key});
+  @override
+  void initState() {
+    locator<FlutterLocalization>()
+      ..init(
+        mapLocales: [
+          const MapLocale('en', AppLocale.EN),
+          const MapLocale('he', AppLocale.HE),
+        ],
+        initLanguageCode: 'en',
+      )
+      ..onTranslatedLanguage = _onTranslatedLanguage;
+    super.initState();
+  }
+
+  void _onTranslatedLanguage(Locale? locale) {
+    setState(() {
+      //Utils.isRight = locale?.languageCode == 'he';
+    });
+  }
 
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Employees Management',
+        title: AppLocale.appTitle.getString(context),
         theme: ThemeData(
           useMaterial3: true,
         ),
@@ -41,11 +68,15 @@ class EmployeesManagementApp extends StatelessWidget {
             ..add(const SearchEmployeeEvent()),
           child: const EmployeesList(),
         ),
+        supportedLocales: locator<FlutterLocalization>().supportedLocales,
+        localizationsDelegates:
+            locator<FlutterLocalization>().localizationsDelegates,
       );
 
   // Fake information to fill the database
   EmployeeEvent buildInsertEvent() {
-    final date = faker.date.between(DateTime.parse("1950-01-01"), DateTime.now());
+    final date =
+        faker.date.between(DateTime.parse("1950-01-01"), DateTime.now());
     return InsertEmployeeEvent(
       Employee(
         name: "${faker.name.firstName()} ${faker.name.lastName()}",

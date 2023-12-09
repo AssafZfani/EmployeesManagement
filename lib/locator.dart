@@ -8,29 +8,41 @@ import 'package:employees_management/features/employees_management/domain/use_ca
 import 'package:employees_management/features/employees_management/domain/use_cases/get_employees_use_case.dart';
 import 'package:employees_management/features/employees_management/domain/use_cases/insert_employee_use_case.dart';
 import 'package:employees_management/features/employees_management/presentation/bloc/employee/employee_bloc.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
 
 Future<void> setup() async {
-  final database = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+  // Localization
+  locator.registerSingleton<FlutterLocalization>(FlutterLocalization.instance);
+
+  // Database
+  final database =
+      await $FloorAppDatabase.databaseBuilder('app_database.db').build();
   locator.registerSingleton<EmployeeDao>(database.employeeDao);
 
   // Repositories
-
-  locator.registerSingleton<EmployeeRepository>(EmployeeRepositoryImpl(locator()));
+  locator
+      .registerSingleton<EmployeeRepository>(EmployeeRepositoryImpl(locator()));
 
   // Use Cases
-  locator.registerSingleton<GetEmployeesUseCase>(GetEmployeesUseCase(locator()));
+  locator
+      .registerSingleton<GetEmployeesUseCase>(GetEmployeesUseCase(locator()));
 
-  locator.registerSingleton<InsertEmployeeUseCase>(InsertEmployeeUseCase(locator()));
+  locator.registerSingleton<InsertEmployeeUseCase>(
+      InsertEmployeeUseCase(locator()));
 
-  locator.registerSingleton<DeleteEmployeeUseCase>(DeleteEmployeeUseCase(locator()));
+  locator.registerSingleton<DeleteEmployeeUseCase>(
+      DeleteEmployeeUseCase(locator()));
 
-  locator.registerSingleton<DeleteEmployeesUseCase>(DeleteEmployeesUseCase(locator()));
+  locator.registerSingleton<DeleteEmployeesUseCase>(
+      DeleteEmployeesUseCase(locator()));
 
-  locator.registerSingleton<ExportEmployeesUseCase>(ExportEmployeesUseCase(locator()));
+  locator.registerSingleton<ExportEmployeesUseCase>(
+      ExportEmployeesUseCase(locator()));
 
   // Blocs
-  locator.registerFactory<EmployeeBloc>(() => EmployeeBloc(locator(), locator(), locator(), locator(), locator()));
+  locator.registerFactory<EmployeeBloc>(() =>
+      EmployeeBloc(locator(), locator(), locator(), locator(), locator()));
 }

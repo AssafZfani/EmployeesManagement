@@ -5,10 +5,12 @@ import 'package:employees_management/features/employees_management/presentation/
 import 'package:employees_management/features/employees_management/presentation/widgets/add_edit_employee_dialog_widget.dart';
 import 'package:employees_management/features/employees_management/presentation/widgets/delete_employees_dialog_widget.dart';
 import 'package:employees_management/features/employees_management/presentation/widgets/employee_list_widget.dart';
+import 'package:employees_management/locale/locales.dart';
 import 'package:employees_management/locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:share_plus/share_plus.dart';
 
 class EmployeesList extends StatefulWidget {
@@ -22,14 +24,21 @@ class _EmployeesListState extends State<EmployeesList> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: const Text('Employees List'),
+        title: Text(AppLocale.employeesList.getString(context)),
         actions: [
           IconButton(
-              onPressed: () => showSearch(context: context, delegate: CustomSearchDelegate()),
+              onPressed: () => showSearch(
+                  context: context, delegate: CustomSearchDelegate()),
               icon: const Icon(Icons.search)),
-          IconButton(onPressed: () => _onAddEmployeeViewPressed(context), icon: const Icon(Icons.add)),
-          IconButton(onPressed: () => _onDeleteEmployeesViewPressed(context), icon: const Icon(Icons.delete_forever)),
-          IconButton(onPressed: () => _onExportEmployeesViewPressed(), icon: const Icon(Icons.file_download)),
+          IconButton(
+              onPressed: () => _onAddEmployeeViewPressed(context),
+              icon: const Icon(Icons.add)),
+          IconButton(
+              onPressed: () => _onDeleteEmployeesViewPressed(context),
+              icon: const Icon(Icons.delete_forever)),
+          IconButton(
+              onPressed: () => _onExportEmployeesViewPressed(),
+              icon: const Icon(Icons.file_download)),
         ],
       ),
       body: const EmployeeListBloc());
