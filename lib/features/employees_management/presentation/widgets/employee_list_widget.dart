@@ -11,13 +11,16 @@ class EmployeesListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CustomScrollView(slivers: [
         const SliverToBoxAdapter(
-          child: Row(textDirection: TextDirection.rtl, mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            CustomText(text: "ID", shrink: true),
-            CustomText(text: "Name"),
-            CustomText(text: "Phone"),
-            CustomText(text: "Position"),
-            CustomText(text: "Start Date")
-          ]),
+          child: Row(
+              textDirection: TextDirection.rtl,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CustomText(text: "ID", shrink: true),
+                CustomText(text: "Name"),
+                CustomText(text: "Phone"),
+                CustomText(text: "Position"),
+                CustomText(text: "Start Date")
+              ]),
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(

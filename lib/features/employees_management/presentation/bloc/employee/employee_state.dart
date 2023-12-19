@@ -13,7 +13,8 @@ class GetEmployeesLoadingState extends EmployeeState {
 }
 
 class GetEmployeesSuccessState extends EmployeeState {
-  const GetEmployeesSuccessState(List<Employee> employees) : super(employees: employees);
+  const GetEmployeesSuccessState(List<Employee> employees)
+      : super(employees: employees);
 }
 
 class GetEmployeesFailState extends EmployeeState {
@@ -29,5 +30,6 @@ class DeleteEmployeeSuccessState extends EmployeeState {
 }
 
 class ExportEmployeesSuccessState extends EmployeeState {
-  const ExportEmployeesSuccessState(String filePath) : super(filePath: filePath);
+  const ExportEmployeesSuccessState(String filePath)
+      : super(filePath: filePath);
 }

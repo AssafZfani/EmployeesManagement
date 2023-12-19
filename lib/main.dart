@@ -57,26 +57,36 @@ class _EmployeesManagementAppState extends State<EmployeesManagementApp> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: AppLocale.appTitle.getString(context),
-    theme: ThemeData(
-      useMaterial3: true,
+        debugShowCheckedModeBanner: false,
+        title: AppLocale.appTitle.getString(context),
+        theme: ThemeData(
+          useMaterial3: true,
           fontFamily: locator<FlutterLocalization>().fontFamily,
         ),
-    home: BlocProvider(
-      create: (_) => locator<EmployeeBloc>()
-        ..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(buildInsertEvent())..add(const SearchEmployeeEvent()),
-      child: const EmployeesList(),
-    ),
-    supportedLocales: locator<FlutterLocalization>().supportedLocales,
-    localizationsDelegates:
-    locator<FlutterLocalization>().localizationsDelegates,
-  );
+        home: BlocProvider(
+          create: (_) => locator<EmployeeBloc>()
+            ..add(buildInsertEvent())
+            ..add(buildInsertEvent())
+            ..add(buildInsertEvent())
+            ..add(buildInsertEvent())
+            ..add(buildInsertEvent())
+            ..add(buildInsertEvent())
+            ..add(buildInsertEvent())
+            ..add(buildInsertEvent())
+            ..add(buildInsertEvent())
+            ..add(buildInsertEvent())
+            ..add(const SearchEmployeeEvent()),
+          child: const EmployeesList(),
+        ),
+        supportedLocales: locator<FlutterLocalization>().supportedLocales,
+        localizationsDelegates:
+            locator<FlutterLocalization>().localizationsDelegates,
+      );
 
   // Fake information to fill the database
   EmployeeEvent buildInsertEvent() {
     final date =
-    faker.date.between(DateTime.parse("1950-01-01"), DateTime.now());
+        faker.date.between(DateTime.parse("1950-01-01"), DateTime.now());
     return InsertEmployeeEvent(
       Employee(
         name: "${faker.name.firstName()} ${faker.name.lastName()}",

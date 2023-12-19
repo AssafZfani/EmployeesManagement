@@ -44,10 +44,13 @@ class _EmployeesListState extends State<EmployeesList> {
       body: const EmployeeListBloc());
 
   _onAddEmployeeViewPressed(BuildContext context) async {
-    final result = await showDialog(context: context, builder: (BuildContext context) => const AddEditEmployeeDialog());
+    final result = await showDialog(
+        context: context,
+        builder: (BuildContext context) => const AddEditEmployeeDialog());
     if (result != null) {
       setState(() {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Employee successfully inserted!')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Employee successfully inserted!')));
         BlocProvider.of<EmployeeBloc>(context).add(
           InsertEmployeeEvent(
             Employee(
@@ -62,19 +65,24 @@ class _EmployeesListState extends State<EmployeesList> {
   }
 
   _onDeleteEmployeesViewPressed(BuildContext context) async {
-    final result = await showDialog(context: context, builder: (BuildContext context) => const DeleteEmployeesDialog());
+    final result = await showDialog(
+        context: context,
+        builder: (BuildContext context) => const DeleteEmployeesDialog());
     if (result != null) {
       setState(() {
         if (result['done']) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Employees successfully deleted!')));
-          BlocProvider.of<EmployeeBloc>(context).add(const DeleteEmployeesEvent());
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Employees successfully deleted!')));
+          BlocProvider.of<EmployeeBloc>(context)
+              .add(const DeleteEmployeesEvent());
         }
       });
     }
   }
 
   _onExportEmployeesViewPressed() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Employees successfully exported!')));
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Employees successfully exported!')));
     BlocProvider.of<EmployeeBloc>(context).add(const ExportEmployeesEvent());
   }
 }
@@ -83,7 +91,8 @@ class EmployeeListBloc extends StatelessWidget {
   const EmployeeListBloc({super.key});
 
   @override
-  Widget build(BuildContext context) => BlocBuilder<EmployeeBloc, EmployeeState>(
+  Widget build(BuildContext context) =>
+      BlocBuilder<EmployeeBloc, EmployeeState>(
         builder: (_, state) {
           switch (state) {
             case GetEmployeesLoadingState():
@@ -94,11 +103,13 @@ class EmployeeListBloc extends StatelessWidget {
               return EmployeesListWidget(employees: state.employees!);
             case InsertEmployeeSuccessState():
             case DeleteEmployeeSuccessState():
-              BlocProvider.of<EmployeeBloc>(context).add(const SearchEmployeeEvent());
+              BlocProvider.of<EmployeeBloc>(context)
+                  .add(const SearchEmployeeEvent());
               return Container();
             case ExportEmployeesSuccessState():
               Share.shareFiles([state.filePath!]);
-              BlocProvider.of<EmployeeBloc>(context).add(const SearchEmployeeEvent());
+              BlocProvider.of<EmployeeBloc>(context)
+                  .add(const SearchEmployeeEvent());
               return Container();
             default:
               return Container();
@@ -113,7 +124,8 @@ class CustomSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) => BlocProvider(
-        create: (_) => locator<EmployeeBloc>()..add(SearchEmployeeEvent(query: query)),
+        create: (_) =>
+            locator<EmployeeBloc>()..add(SearchEmployeeEvent(query: query)),
         child: const EmployeeListBloc(),
       );
 

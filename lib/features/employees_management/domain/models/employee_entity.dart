@@ -9,5 +9,10 @@ class Employee {
   final String phone;
   final String startDate;
 
-  const Employee({this.id, required this.name, required this.position, required this.phone, required this.startDate});
+  const Employee(
+      {this.id,
+      required this.name,
+      required this.position,
+      required this.phone,
+      required this.startDate});
 }

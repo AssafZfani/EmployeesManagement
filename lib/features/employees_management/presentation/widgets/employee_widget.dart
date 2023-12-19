@@ -45,8 +45,8 @@ class EmployeeWidget extends StatelessWidget {
             startDate: employee.startDate)).then((result) => {
           if (result != null)
             {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('Employee successfully edited!'))),
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Employee successfully edited!'))),
               BlocProvider.of<EmployeeBloc>(context).add(
                 InsertEmployeeEvent(
                   Employee(
@@ -62,7 +62,8 @@ class EmployeeWidget extends StatelessWidget {
   }
 
   _onEmployeeDismissed(BuildContext context, Employee employee) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Employee successfully deleted!')));
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Employee successfully deleted!')));
     BlocProvider.of<EmployeeBloc>(context).add(DeleteEmployeeEvent(employee));
   }
 }

@@ -50,7 +50,7 @@ dependencies:
   # Sharing files
   share_plus: ^7.2.1
   # Localization
-  flutter_localization: ^0.1.14
+  flutter_localization: ^0.2.0
 
 dev_dependencies:
   flutter_test:
