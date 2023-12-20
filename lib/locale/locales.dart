@@ -25,6 +25,9 @@ mixin AppLocale {
   static const String update = 'update';
   static const String yes = 'yes';
 
+  static const String title = 'title';
+  static const String thisIs = 'thisIs';
+
   static const Map<String, dynamic> EN = {
     add: 'Add',
     appTitle: 'Employees Management',
@@ -47,6 +50,8 @@ mixin AppLocale {
     startDate: 'Start Date',
     update: 'Update',
     yes: 'Yes',
+    title: 'Localization',
+    thisIs: 'This is %a package, version %a.',
   };
 
   static const Map<String, dynamic> HE = {
@@ -71,5 +76,7 @@ mixin AppLocale {
     startDate: 'תחילת עבודה',
     update: 'עדכן',
     yes: 'כן',
+    title: 'לוקליזציה',
+    thisIs: 'זאת חבילה של %a, גירסא %a.',
   };
 }

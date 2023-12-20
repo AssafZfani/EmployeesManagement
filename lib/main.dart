@@ -51,7 +51,6 @@ class _EmployeesManagementAppState extends State<EmployeesManagementApp> {
 
   void _onTranslatedLanguage(Locale? locale) {
     setState(() {
-      //Utils.isRight = locale?.languageCode == 'he';
     });
   }
 

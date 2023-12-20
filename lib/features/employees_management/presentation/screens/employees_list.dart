@@ -2,6 +2,7 @@ import 'package:employees_management/features/employees_management/domain/models
 import 'package:employees_management/features/employees_management/presentation/bloc/employee/employee_bloc.dart';
 import 'package:employees_management/features/employees_management/presentation/bloc/employee/employee_event.dart';
 import 'package:employees_management/features/employees_management/presentation/bloc/employee/employee_state.dart';
+import 'package:employees_management/features/employees_management/presentation/screens/settings.dart';
 import 'package:employees_management/features/employees_management/presentation/widgets/add_edit_employee_dialog_widget.dart';
 import 'package:employees_management/features/employees_management/presentation/widgets/delete_employees_dialog_widget.dart';
 import 'package:employees_management/features/employees_management/presentation/widgets/employee_list_widget.dart';
@@ -39,6 +40,9 @@ class _EmployeesListState extends State<EmployeesList> {
           IconButton(
               onPressed: () => _onExportEmployeesViewPressed(),
               icon: const Icon(Icons.file_download)),
+          IconButton(
+              onPressed: () => _onSettingsViewPressed(),
+              icon: const Icon(Icons.settings)),
         ],
       ),
       body: const EmployeeListBloc());
@@ -87,6 +91,12 @@ class _EmployeesListState extends State<EmployeesList> {
         content:
             Text(AppLocale.employeesSuccessfullyExported.getString(context))));
     BlocProvider.of<EmployeeBloc>(context).add(const ExportEmployeesEvent());
+  }
+
+  _onSettingsViewPressed() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const SettingsScreen(),
+    ));
   }
 }
 
