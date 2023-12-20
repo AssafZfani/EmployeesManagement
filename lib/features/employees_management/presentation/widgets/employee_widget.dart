@@ -3,8 +3,10 @@ import 'package:employees_management/features/employees_management/presentation/
 import 'package:employees_management/features/employees_management/presentation/bloc/employee/employee_event.dart';
 import 'package:employees_management/features/employees_management/presentation/widgets/add_edit_employee_dialog_widget.dart';
 import 'package:employees_management/features/employees_management/presentation/widgets/custom_text_widget.dart';
+import 'package:employees_management/locale/locales.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 
 class EmployeeWidget extends StatelessWidget {
   final Employee employee;
@@ -45,8 +47,13 @@ class EmployeeWidget extends StatelessWidget {
             startDate: employee.startDate)).then((result) => {
           if (result != null)
             {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Employee successfully edited!'))),
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    AppLocale.employeeSuccessfullyEdited.getString(context),
+                  ),
+                ),
+              ),
               BlocProvider.of<EmployeeBloc>(context).add(
                 InsertEmployeeEvent(
                   Employee(
@@ -63,7 +70,12 @@ class EmployeeWidget extends StatelessWidget {
 
   _onEmployeeDismissed(BuildContext context, Employee employee) {
     ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Employee successfully deleted!')));
+      SnackBar(
+        content: Text(
+          AppLocale.employeeSuccessfullyDeleted.getString(context),
+        ),
+      ),
+    );
     BlocProvider.of<EmployeeBloc>(context).add(DeleteEmployeeEvent(employee));
   }
 }

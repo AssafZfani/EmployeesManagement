@@ -1,4 +1,6 @@
+import 'package:employees_management/locale/locales.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 
 class AddEditEmployeeDialog extends StatefulWidget {
   final String name;
@@ -44,27 +46,32 @@ class _AddEditEmployeeDialogState extends State<AddEditEmployeeDialog> {
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-        title: Text('${widget.name.isEmpty ? 'Add' : 'Update'} Employee'),
+        title: Text(
+            '${widget.name.isEmpty ? AppLocale.add.getString(context) : AppLocale.update.getString(context)} ${AppLocale.employee.getString(context)}'),
         content: SingleChildScrollView(
           child: Column(
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(
+                    labelText: AppLocale.name.getString(context)),
               ),
               TextFormField(
                 keyboardType: TextInputType.phone,
                 controller: phoneController,
-                decoration: const InputDecoration(labelText: 'Phone'),
+                decoration: InputDecoration(
+                    labelText: AppLocale.phone.getString(context)),
               ),
               TextFormField(
                 controller: positionController,
-                decoration: const InputDecoration(labelText: 'Position'),
+                decoration: InputDecoration(
+                    labelText: AppLocale.position.getString(context)),
               ),
               TextFormField(
                 keyboardType: TextInputType.datetime,
                 controller: startDateController,
-                decoration: const InputDecoration(labelText: 'Start Date'),
+                decoration: InputDecoration(
+                    labelText: AppLocale.startDate.getString(context)),
               ),
             ],
           ),
@@ -74,7 +81,7 @@ class _AddEditEmployeeDialogState extends State<AddEditEmployeeDialog> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text('Cancel'),
+            child: Text(AppLocale.cancel.getString(context)),
           ),
           TextButton(
             onPressed: () {
@@ -85,7 +92,7 @@ class _AddEditEmployeeDialogState extends State<AddEditEmployeeDialog> {
                 'startDate': startDateController.text,
               });
             },
-            child: const Text('Save'),
+            child: Text(AppLocale.save.getString(context)),
           ),
         ],
       );

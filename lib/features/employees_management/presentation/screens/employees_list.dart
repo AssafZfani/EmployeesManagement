@@ -28,7 +28,7 @@ class _EmployeesListState extends State<EmployeesList> {
         actions: [
           IconButton(
               onPressed: () => showSearch(
-                  context: context, delegate: CustomSearchDelegate()),
+                  context: context, delegate: CustomSearchDelegate(context)),
               icon: const Icon(Icons.search)),
           IconButton(
               onPressed: () => _onAddEmployeeViewPressed(context),
@@ -49,8 +49,9 @@ class _EmployeesListState extends State<EmployeesList> {
         builder: (BuildContext context) => const AddEditEmployeeDialog());
     if (result != null) {
       setState(() {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Employee successfully inserted!')));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+                AppLocale.employeeSuccessfullyInserted.getString(context))));
         BlocProvider.of<EmployeeBloc>(context).add(
           InsertEmployeeEvent(
             Employee(
@@ -71,8 +72,9 @@ class _EmployeesListState extends State<EmployeesList> {
     if (result != null) {
       setState(() {
         if (result['done']) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Employees successfully deleted!')));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                  AppLocale.employeesSuccessfullyDeleted.getString(context))));
           BlocProvider.of<EmployeeBloc>(context)
               .add(const DeleteEmployeesEvent());
         }
@@ -81,8 +83,9 @@ class _EmployeesListState extends State<EmployeesList> {
   }
 
   _onExportEmployeesViewPressed() {
-    ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Employees successfully exported!')));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content:
+            Text(AppLocale.employeesSuccessfullyExported.getString(context))));
     BlocProvider.of<EmployeeBloc>(context).add(const ExportEmployeesEvent());
   }
 }
@@ -119,8 +122,13 @@ class EmployeeListBloc extends StatelessWidget {
 }
 
 class CustomSearchDelegate extends SearchDelegate<String> {
+  late final BuildContext context;
+
+  CustomSearchDelegate(this.context);
+
   @override
-  String? get searchFieldLabel => 'Search by employee name';
+  String? get searchFieldLabel =>
+      AppLocale.searchByEmployeeName.getString(context);
 
   @override
   Widget buildResults(BuildContext context) => BlocProvider(

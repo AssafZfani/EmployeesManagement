@@ -1,21 +1,22 @@
+import 'package:employees_management/locale/locales.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 
 class DeleteEmployeesDialog extends StatelessWidget {
   const DeleteEmployeesDialog({super.key});
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-          title: const Text(
-              'Are you sure you want to delete all of the employees?'),
+      title: Text(AppLocale.deleteAllEmployees.getString(context)),
           actions: [
             TextButton(
-              child: const Text('No'),
+              child: Text(AppLocale.no.getString(context)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text('Yes'),
+              child: Text(AppLocale.yes.getString(context)),
               onPressed: () {
                 Navigator.of(context).pop({'done': true});
               },
