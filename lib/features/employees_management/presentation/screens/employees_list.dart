@@ -24,6 +24,7 @@ class EmployeesList extends StatefulWidget {
 class _EmployeesListState extends State<EmployeesList> {
   @override
   Widget build(BuildContext context) => Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text(AppLocale.employeesList.getString(context)),
         actions: [
