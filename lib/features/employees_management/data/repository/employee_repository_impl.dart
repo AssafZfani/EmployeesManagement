@@ -48,29 +48,29 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
     // Add headers
     sheet
       ..cell(CellIndex.indexByColumnRow(rowIndex: 0, columnIndex: 0)).value =
-          'ID'
+          const FormulaCellValue('ID')
       ..cell(CellIndex.indexByColumnRow(rowIndex: 0, columnIndex: 1)).value =
-          'Name'
+          const FormulaCellValue('Name')
       ..cell(CellIndex.indexByColumnRow(rowIndex: 0, columnIndex: 2)).value =
-          'Phone'
+          const FormulaCellValue('Phone')
       ..cell(CellIndex.indexByColumnRow(rowIndex: 0, columnIndex: 3)).value =
-          'Position'
+          const FormulaCellValue('Position')
       ..cell(CellIndex.indexByColumnRow(rowIndex: 0, columnIndex: 4)).value =
-          'StartDate';
+          const FormulaCellValue('StartDate');
 
     // Populate data
     for (var i = 0; i < employeeList.length; i++) {
       sheet
         ..cell(CellIndex.indexByColumnRow(rowIndex: i + 1, columnIndex: 0))
-            .value = employeeList[i].id
+            .value = IntCellValue(employeeList[i].id!)
         ..cell(CellIndex.indexByColumnRow(rowIndex: i + 1, columnIndex: 1))
-            .value = employeeList[i].name
+            .value = FormulaCellValue(employeeList[i].name)
         ..cell(CellIndex.indexByColumnRow(rowIndex: i + 1, columnIndex: 2))
-            .value = employeeList[i].phone
+            .value = FormulaCellValue(employeeList[i].phone)
         ..cell(CellIndex.indexByColumnRow(rowIndex: i + 1, columnIndex: 3))
-            .value = employeeList[i].position
+            .value = FormulaCellValue(employeeList[i].position)
         ..cell(CellIndex.indexByColumnRow(rowIndex: i + 1, columnIndex: 4))
-            .value = employeeList[i].startDate;
+            .value = FormulaCellValue(employeeList[i].startDate);
     }
 
     // Save the workbook to a file

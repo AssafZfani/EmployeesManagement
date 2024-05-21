@@ -120,7 +120,7 @@ class EmployeeListBloc extends StatelessWidget {
                   .add(const SearchEmployeeEvent());
               return Container();
             case ExportEmployeesSuccessState():
-              Share.shareFiles([state.filePath!]);
+              Share.share(state.filePath!);
               BlocProvider.of<EmployeeBloc>(context)
                   .add(const SearchEmployeeEvent());
               return Container();
